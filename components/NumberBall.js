@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {View, Text} from 'react-native';
+import {withTheme} from 'react-native-ios-kit';
 
-export const NumberBall = ({number, size = 20}) => (
+export const NumberBall = withTheme(({number, size = 20, theme}) => (
   <View
     style={{
       height: size,
@@ -9,7 +10,7 @@ export const NumberBall = ({number, size = 20}) => (
       borderRadius: size / 2,
       justifyContent: 'center',
       backgroundColor: 'transparent',
-      borderColor: 'black',
+      borderColor: theme.textColor,
       borderWidth: 1,
     }}
   >
@@ -18,10 +19,10 @@ export const NumberBall = ({number, size = 20}) => (
         fontSize: size / 2,
         textAlign: 'center',
         backgroundColor: 'transparent',
-        color: 'black',
+        color: theme.textColor,
       }}
     >
       {number}
     </Text>
   </View>
-);
+));
