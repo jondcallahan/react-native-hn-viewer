@@ -2,6 +2,7 @@
 import React from 'react';
 import {ApolloProvider, Query} from 'react-apollo';
 import {FlatList} from 'react-native';
+import {Haptic} from 'expo';
 
 import gql from 'graphql-tag';
 
@@ -44,6 +45,7 @@ export const CommentFeed = ({navigation}) => (
         if (loading && !isRefetching(networkStatus)) return <LoadingSpinner />;
         if (error) return <Error retry={refetch} error={JSON.stringify(error)} />;
         const {title, by, text, url, timeISO, type} = data.hn.item;
+        Haptic.impact(Haptic.ImpactStyles.Light);
         return (
           <FlatList
             style={{padding: 8}}
