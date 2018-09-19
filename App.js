@@ -27,13 +27,21 @@ class App extends React.Component {
     this.state = {
       theme: darkTheme,
     };
+    this.setTheme = this.setTheme.bind(this);
     this.setTheme();
   }
-  async setTheme() {
-    this.setState({
-      theme: (await Brightness.getBrightnessAsync()) < 0.6 ? darkTheme : lightTheme,
-    });
+  componentDidMount() {
+    this.brightnessListener = setInterval(this.setTheme, 1000);
   }
+  async setTheme() {
+    const brightness = await Brightness.getBrightnessAsync();
+
+    this.setState({theme: brightness < 0.6 ? darkTheme : lightTheme});
+  }
+  componentWillUnmount() {
+    clearInterval(this.brightnessListener);
+  }
+
   render() {
     const {
       theme,
